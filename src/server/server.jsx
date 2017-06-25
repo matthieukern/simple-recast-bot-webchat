@@ -3,14 +3,19 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
 import serializeJs from "serialize-javascript";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import reducers from "../shared/reducers";
+import { Map } from "immutable";
 import config from "../shared/config";
 import App from "../shared/components/App";
 import { ServerStyleSheet } from "styled-components";
 import "../shared/resources/favicon.png";
 import "../shared/style";
+
+const publicConfig = Object.assign({}, config);
+delete publicConfig.private;
 
 /**
  * Render the HTML that will be send back to the client to display the page with
@@ -39,7 +44,7 @@ function renderHTML(
 			<body>
 				<div id="app">${componentHTML}</div>
 				<script>
-					window.__CONFIG__ = ${serializeJs(config, { isJSON: true })};
+					window.__CONFIG__ = ${serializeJs(publicConfig, { isJSON: true })};
 					window.__PRELOADED_STATE__ = ${serializeJs(preloadedState, {
     isJSON: true
   })};
@@ -61,7 +66,8 @@ function renderHTML(
 function serverSideRendering(req: Object, res: Object) {
   const context: Object = {};
   const sheet = new ServerStyleSheet();
-  const store = createStore(reducers);
+  const initialState = Map();
+  const store = createStore(reducers, initialState, applyMiddleware(thunk));
 
   const markup = renderToString(
     sheet.collectStyles(
@@ -74,7 +80,7 @@ function serverSideRendering(req: Object, res: Object) {
   );
 
   const styles = sheet.getStyleTags();
-  const preloadedState = store.getState();
+  const preloadedState = store.getState().toJS();
 
   if (context.url) {
     res.redirect(301, context.url);

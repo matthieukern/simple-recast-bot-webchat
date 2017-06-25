@@ -1,7 +1,12 @@
 import path from "path";
 import express from "express";
 import compress from "compression";
+import bodyparser from "body-parser";
+import RecastAIClient from "recastai";
+import config from "../shared/config";
 import serverSideRendering from "./server.jsx";
+
+const recast = new RecastAIClient.request(config.private.recast.token);
 
 export default function startAppServer(configs, callback) {
   const appServer = express();
@@ -15,6 +20,8 @@ export default function startAppServer(configs, callback) {
   appServer.enable("case sensitive routing");
   appServer.enable("strict routing");
   appServer.disable("x-powered-by");
+
+  appServer.use(bodyparser.json());
 
   appServer.use(compress({ threshold: 0 }));
   appServer.use(
@@ -44,6 +51,20 @@ export default function startAppServer(configs, callback) {
       })
     );
   }
+
+  appServer.post("/api/converse", (req, res) => {
+    const { message, token } = req.body;
+    recast
+      .converseText(message, { conversationToken: token })
+      .then(botResponse => {
+        const newToken = botResponse.conversationToken;
+        const replies = botResponse.replies;
+        res.json({
+          token: newToken,
+          replies
+        });
+      });
+  });
 
   appServer.use(serverSideRendering);
 

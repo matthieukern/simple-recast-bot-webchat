@@ -2,16 +2,12 @@
 import React from "react";
 import styled from "styled-components";
 
-import Conversation from "./Conversation";
-import Message from "./Message";
+import Conversation from "./conversation";
 import MessageInput from "./message-input";
 
 const App = (props: Object) => (
   <Wrapper>
-    <Conversation>
-      <Message>Hello!</Message>
-      <Message other>Hello!</Message>
-    </Conversation>
+    <Conversation />
     <MessageInput />
   </Wrapper>
 );

@@ -1,6 +1,9 @@
 {
   "projectName": "Simple Recast Bot Webchat",
-  "recast": {
-    "token": ""
+
+  "private": {
+    "recast": {
+      "token": "f547f64e374b15d19330037372f25e3b"
+    }
   }
 }
