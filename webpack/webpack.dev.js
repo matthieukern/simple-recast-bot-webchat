@@ -39,6 +39,10 @@ const buildConfiguration = (env = "") => {
           loader: "file-loader?name=img/[name].[ext]"
         },
         {
+          test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+          loader: "file-loader?name=fonts/[name].[ext]"
+        },
+        {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
             use: "css-loader"
@@ -84,6 +88,10 @@ const buildConfiguration = (env = "") => {
         {
           test: /\.(jp[e]?g|png|gif|svg)$/i,
           loader: "file-loader?name=img/[name].[ext]"
+        },
+        {
+          test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+          loader: "file-loader?name=fonts/[name].[ext]"
         },
         {
           test: /\.css$/,

@@ -26,6 +26,18 @@ const MessageInput = (
         placeholder="Enter your message..."
         value={message}
         onChange={e => setMessage && setMessage(e.target.value)}
+        onKeyDown={e => {
+          if (e.keyCode === 10 || e.keyCode === 13) {
+            if (!e.shiftKey) {
+              if (message.trim().length > 0) {
+                onSendButtonClick(message, token);
+                setMessage("");
+              }
+              e.preventDefault();
+              return false;
+            }
+          }
+        }}
       />
       <SendButton
         disabled={loading}
