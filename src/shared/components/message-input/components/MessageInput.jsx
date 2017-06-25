@@ -6,8 +6,10 @@ import Container from "./Container";
 import Input from "./Input";
 import SendButton from "./SendButton";
 
+/** The message current value. */
 const message = withState("message", "setMessage", "");
 
+/** The assembly of the typing zone, managing the message state and sending action. */
 const MessageInput = (
   props: {
     onSendButtonClick: (string) => void,

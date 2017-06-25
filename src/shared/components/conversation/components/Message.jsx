@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 
+/** A message bubble. */
 const Message = styled.div`
 	color: white;
 	border-radius: 3px;

@@ -1,7 +1,13 @@
+/** The action when a message is sent. */
 export const SEND_MESSAGE = "SEND_MESSAGE";
+
+/** The action when a response is received for a message. */
 export const RECEIVE_MESSAGES = "RECEIVE_MESSAGES";
+
+/** Dispatched if an error has occurred when dispatching a message. */
 export const MESSAGE_ERROR = "MESSAGE_ERROR";
 
+/** Helper to asynchronously send a message to the server. */
 export function sendMessage(message, token) {
   return dispatch => {
     dispatch({

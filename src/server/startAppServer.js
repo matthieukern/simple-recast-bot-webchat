@@ -28,6 +28,7 @@ export default function startAppServer(configs, callback) {
     express.static(path.resolve(__dirname, "..", "..", "dist", "client"))
   );
 
+  // If in development mode, expose a webpack dev middleware.
   if (appServer.locals.development) {
     const webpack = require("webpack");
     const webpackConfig = require("../../webpack/webpack.dev.js")("browser");
@@ -52,6 +53,7 @@ export default function startAppServer(configs, callback) {
     );
   }
 
+  // Proxy the recast.ai api to not send secret to the client.
   appServer.post("/api/converse", (req, res) => {
     const { message, token } = req.body;
     recast
@@ -66,6 +68,7 @@ export default function startAppServer(configs, callback) {
       });
   });
 
+  // Use the server side rendering function to manage isomorphism.
   appServer.use(serverSideRendering);
 
   appServer.listen(appServer.get("port"), function listen() {

@@ -3,6 +3,7 @@ import { fromJS } from "immutable";
 
 import { SEND_MESSAGE, RECEIVE_MESSAGES, MESSAGE_ERROR } from "../actions";
 
+/** Manage messages redux state. */
 function messages(state = fromJS([]), action) {
   switch (action.type) {
     case SEND_MESSAGE:
@@ -22,6 +23,7 @@ function messages(state = fromJS([]), action) {
   return state;
 }
 
+/** Manage conversation redux state. */
 function conversation(state = fromJS({ token: null, loading: false }), action) {
   switch (action.type) {
     case SEND_MESSAGE:

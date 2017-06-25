@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 
+/** The textarea in which the user type his message. */
 const MessageInput = styled.textarea`
 	width: 100%;
 	border: none;

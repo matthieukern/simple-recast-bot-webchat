@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Conversation from "./conversation";
 import MessageInput from "./message-input";
 
+/** The main container of the app. */
 const App = (props: Object) => (
   <Wrapper>
     <Conversation />

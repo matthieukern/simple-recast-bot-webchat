@@ -1,5 +1,6 @@
 import { injectGlobal } from "styled-components";
 
+/** Meyer's reset */
 injectGlobal`
 	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
 	blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
@@ -13,7 +14,7 @@ injectGlobal`
 		border: 0;
 		font: inherit;
 		font-size: 100%;
-		font-family: 'Open Sans', sans-serif;
+		font-family: 'Arial', sans-serif;
 		vertical-align: baseline;
 	}
 

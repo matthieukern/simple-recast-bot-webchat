@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 
+/** The button to send a message. */
 const SendButton = styled.button`
 	padding: 10px 20px;
 	border: none;
