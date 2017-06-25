@@ -3,6 +3,9 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
 import serializeJs from "serialize-javascript";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import reducers from "../shared/reducers";
 import config from "../shared/config";
 import App from "../shared/components/App";
 import { ServerStyleSheet } from "styled-components";
@@ -17,7 +20,11 @@ import "../shared/style";
  * @param {string} styles The styled-components processed styles.
  * @returns {string} The generated HTML.
  */
-function renderHTML(componentHTML: string, styles: string) {
+function renderHTML(
+  componentHTML: string,
+  styles: string,
+  preloadedState: object
+) {
   return `
 		<!DOCTYPE html>
 		<html>
@@ -33,6 +40,9 @@ function renderHTML(componentHTML: string, styles: string) {
 				<div id="app">${componentHTML}</div>
 				<script>
 					window.__CONFIG__ = ${serializeJs(config, { isJSON: true })};
+					window.__PRELOADED_STATE__ = ${serializeJs(preloadedState, {
+    isJSON: true
+  })};
 				</script>
 				<script src="/client.bundle.js"></script>
 			</body>
@@ -51,21 +61,25 @@ function renderHTML(componentHTML: string, styles: string) {
 function serverSideRendering(req: Object, res: Object) {
   const context: Object = {};
   const sheet = new ServerStyleSheet();
+  const store = createStore(reducers);
 
   const markup = renderToString(
     sheet.collectStyles(
-      <StaticRouter context={context} location={req.url}>
-        <App />
-      </StaticRouter>
+      <Provider store={store}>
+        <StaticRouter context={context} location={req.url}>
+          <App />
+        </StaticRouter>
+      </Provider>
     )
   );
 
   const styles = sheet.getStyleTags();
+  const preloadedState = store.getState();
 
   if (context.url) {
     res.redirect(301, context.url);
   } else {
-    res.status(200).send(renderHTML(markup, styles));
+    res.status(200).send(renderHTML(markup, styles, preloadedState));
   }
 }
 
