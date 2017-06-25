@@ -17,7 +17,7 @@ import "../shared/style";
  * @param {string} styles The styled-components processed styles.
  * @returns {string} The generated HTML.
  */
-function renderHTML(componentHTML: String, styles: String) {
+function renderHTML(componentHTML: string, styles: string) {
   return `
 		<!DOCTYPE html>
 		<html>
