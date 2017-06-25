@@ -1,0 +1,9 @@
+{
+  "verbose": false,
+  "watch": [
+    "src/server/*",
+    "webpack/*"
+  ],
+  "ext": "js jsx json",
+  "exec": "yarn run dev:build && node dist/server/server.bundle.js"
+}
