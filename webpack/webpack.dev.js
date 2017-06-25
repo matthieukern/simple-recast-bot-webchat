@@ -60,8 +60,7 @@ const buildConfiguration = (env = "") => {
       /^[a-z\-0-9]+$/,
       {
         "react-dom/server": true,
-        "styled-components/lib/models/StyleSheet": "commonjs styled-components/lib/models/StyleSheet",
-        "../src/config.json": true
+        "styled-components/lib/models/StyleSheet": "commonjs styled-components/lib/models/StyleSheet"
       }
     ],
     entry: {
