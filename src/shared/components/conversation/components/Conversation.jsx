@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { lifecycle } from "recompose";
 
 import Message from "./Message";
+import NoMessageInfo from "./NoMessageInfo";
 
 /**
  * Simple function to scroll to the end of the conversation when the component is re-rendered (when
@@ -21,6 +22,8 @@ const manageScroll = lifecycle({
 /** The container for a conversation, that displays all stored messages. */
 const Conversation = props => (
   <Wrapper>
+    {props.messages.size === 0 &&
+      <NoMessageInfo>Ask me anything!</NoMessageInfo>}
     {props.messages.map((msg, key) => (
       <Message key={key} other={msg.get("bot")}>{msg.get("message")}</Message>
     ))}

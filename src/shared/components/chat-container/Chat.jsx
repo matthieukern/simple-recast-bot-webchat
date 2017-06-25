@@ -1,3 +1,4 @@
+// @flow
 import React from "react";
 import styled from "styled-components";
 
@@ -5,7 +6,7 @@ import Conversation from "../conversation";
 import MessageInput from "../message-input";
 
 /** The chat container. */
-const Chat = ({ visible }) => (
+const Chat = ({ visible }: { visible: boolean }) => (
   <Wrapper visible={visible}>
     <Title>Recast.ai Simple Bot Chat</Title>
     <Content>
