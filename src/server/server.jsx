@@ -28,7 +28,7 @@ delete publicConfig.private;
 function renderHTML(
   componentHTML: string,
   styles: string,
-  preloadedState: object
+  preloadedState: Object
 ) {
   return `
 		<!DOCTYPE html>

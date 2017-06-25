@@ -1,3 +1,4 @@
+// @flow
 import { injectGlobal } from "styled-components";
 
 /** Meyer's reset */

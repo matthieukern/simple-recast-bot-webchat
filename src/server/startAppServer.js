@@ -1,3 +1,4 @@
+// @flow
 import path from "path";
 import express from "express";
 import compress from "compression";
@@ -8,7 +9,13 @@ import serverSideRendering from "./server.jsx";
 
 const recast = new RecastAIClient.request(config.private.recast.token);
 
-export default function startAppServer(configs, callback) {
+export default function startAppServer(
+  configs: {
+    DEVELOPMENT: boolean,
+    PRODUCTION: boolean,
+    APP_PORT: number
+  }
+) {
   const appServer = express();
 
   appServer.locals.development = configs.DEVELOPMENT;
@@ -54,7 +61,7 @@ export default function startAppServer(configs, callback) {
   }
 
   // Proxy the recast.ai api to not send secret to the client.
-  appServer.post("/api/converse", (req, res) => {
+  appServer.post("/api/converse", (req: Object, res: Object) => {
     const { message, token } = req.body;
     recast
       .converseText(message, { conversationToken: token })
@@ -74,8 +81,5 @@ export default function startAppServer(configs, callback) {
   appServer.listen(appServer.get("port"), function listen() {
     const host = this.address().address;
     console.log("Server launched at http://%s:%s", host, port);
-    if (callback) {
-      callback();
-    }
   });
 }

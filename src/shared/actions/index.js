@@ -1,3 +1,4 @@
+// @flow
 /** The action when a message is sent. */
 export const SEND_MESSAGE = "SEND_MESSAGE";
 
@@ -8,8 +9,8 @@ export const RECEIVE_MESSAGES = "RECEIVE_MESSAGES";
 export const MESSAGE_ERROR = "MESSAGE_ERROR";
 
 /** Helper to asynchronously send a message to the server. */
-export function sendMessage(message, token) {
-  return dispatch => {
+export function sendMessage(message: string, token: string) {
+  return (dispatch: (Object) => null) => {
     dispatch({
       type: SEND_MESSAGE,
       message

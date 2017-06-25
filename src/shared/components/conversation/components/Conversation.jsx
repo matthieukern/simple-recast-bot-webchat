@@ -11,8 +11,10 @@ import Message from "./Message";
  */
 const manageScroll = lifecycle({
   componentDidUpdate() {
-    const elem = document.getElementById("ugly-scroll-hack");
-    elem.scrollIntoView({ behavior: "smooth" });
+    const elem: ?Object = document.getElementById("ugly-scroll-hack");
+    if (elem) {
+      elem.scrollIntoView({ behavior: "smooth" });
+    }
   }
 });
 

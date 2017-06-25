@@ -1,3 +1,4 @@
+// @flow
 import { combineReducers } from "redux-immutable";
 import { fromJS } from "immutable";
 
